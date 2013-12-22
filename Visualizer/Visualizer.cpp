@@ -17,16 +17,13 @@ Visualizer::~Visualizer()
 
 
 // Visualizer initialization (to be called before run())
-bool Visualizer::initialize()
+void Visualizer::initialize()
 {
 	mMusicPath = "Resource/music.mp3";
-	
 	mSoundManager.initialize(SPECTRUM_SIZE);
-
 	mGraphicsManager.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, SPECTRUM_SIZE);
 	
 	mIsRunning = true;
-	return true;
 }
 
 

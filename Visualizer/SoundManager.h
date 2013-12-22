@@ -12,8 +12,8 @@ public:
 
 	const float* getSpectrum();
 
-	bool initialize(int spectrumSize);
-	bool loadMusic(std::string & musicPath);
+	void initialize(int spectrumSize);
+	void loadMusic(std::string & musicPath);
 	void playMusic();
 	void update();
 

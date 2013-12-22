@@ -15,6 +15,7 @@ GraphicsManager::~GraphicsManager()
 }
 
 
+// GraphicsManager initialization (to be called before any other function)
 void GraphicsManager::initialize(int windowWidth, int windowHeight, int spectrumSize)
 {
 	mWindowWidth = windowWidth;
@@ -68,6 +69,7 @@ void GraphicsManager::setPixel(SDL_Surface *surface, const int x, const int y, c
 }
 
 
+// Sets the pixels' values for the first type of visualization (see displayBars())
 void GraphicsManager::displayPointBars(int x, int y, float ratio)
 {
 	setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, 0, 255, 0));
@@ -77,15 +79,7 @@ void GraphicsManager::displayPointBars(int x, int y, float ratio)
 }
 
 
-void GraphicsManager::displayPointSpread(int x, int y, Uint32 color)
-{
-	setPixel(mScreen, x, y, color);
-	setPixel(mScreen, x, mWindowHeight - y, color);
-	setPixel(mScreen, mWindowWidth - x - 1, y, color);
-	setPixel(mScreen, mWindowWidth - x - 1, mWindowHeight - y, color);
-}
-
-
+// Displays the first type of visualization: vertical bars whose heights are proportional to the corresponding frequency
 void GraphicsManager::displayBars(const float spectrum[])
 {
 	int value = 0, x = 0;
@@ -110,6 +104,17 @@ void GraphicsManager::displayBars(const float spectrum[])
 }
 
 
+// Sets the pixels' values for the second type of visualization (see displaySpread())
+void GraphicsManager::displayPointSpread(int x, int y, Uint32 color)
+{
+	setPixel(mScreen, x, y, color);
+	setPixel(mScreen, x, mWindowHeight - y, color);
+	setPixel(mScreen, mWindowWidth - x - 1, y, color);
+	setPixel(mScreen, mWindowWidth - x - 1, mWindowHeight - y, color);
+}
+
+
+// Displays the first type of visualization: pixels that seem to be "leaking" from fixed sources, spreading in a cone-shaped area
 void GraphicsManager::displaySpread(const float spectrum[])
 {
 	int value = 0, x = 0;
@@ -145,6 +150,7 @@ void GraphicsManager::displaySpread(const float spectrum[])
 }
 
 
+// Updates the display by clearing the screen and displaying the current visualization
 void GraphicsManager::update(const float spectrum[])
 {
 	SDL_LockSurface(mScreen);
@@ -158,6 +164,7 @@ void GraphicsManager::update(const float spectrum[])
 }
 
 
+// Clears the screen with the default color
 void GraphicsManager::clearScreen()
 {
 	SDL_FillRect(mScreen, NULL, SDL_MapRGB(mScreen->format, 0, 0, 0));

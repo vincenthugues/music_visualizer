@@ -16,7 +16,7 @@ public:
 	Visualizer();
 	~Visualizer();
 
-	bool initialize();
+	void initialize();
 	void run();
 
 private:
