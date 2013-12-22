@@ -86,7 +86,7 @@ void GraphicsManager::displayPointSpread(int x, int y, Uint32 color)
 }
 
 
-void GraphicsManager::displayBars(float spectrum[])
+void GraphicsManager::displayBars(const float spectrum[])
 {
 	int value = 0, x = 0;
 	int y, i;
@@ -110,7 +110,7 @@ void GraphicsManager::displayBars(float spectrum[])
 }
 
 
-void GraphicsManager::displaySpread(float spectrum[])
+void GraphicsManager::displaySpread(const float spectrum[])
 {
 	int value = 0, x = 0;
 	int y, tmp, i;
@@ -145,7 +145,7 @@ void GraphicsManager::displaySpread(float spectrum[])
 }
 
 
-void GraphicsManager::update(float spectrum[])
+void GraphicsManager::update(const float spectrum[])
 {
 	SDL_LockSurface(mScreen);
 	clearScreen();
@@ -162,5 +162,3 @@ void GraphicsManager::clearScreen()
 {
 	SDL_FillRect(mScreen, NULL, SDL_MapRGB(mScreen->format, 0, 0, 0));
 }
-
-

@@ -24,12 +24,18 @@
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Visualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

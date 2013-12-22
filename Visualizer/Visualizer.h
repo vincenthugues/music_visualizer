@@ -1,8 +1,7 @@
 #pragma once
 
-#include <fmod.h>
-
 #include "GraphicsManager.h"
+#include "SoundManager.h"
 
 
 #define	WINDOW_WIDTH		1024
@@ -14,18 +13,6 @@
 class Visualizer
 {
 public:
-	struct Data
-	{
-		FMOD_SYSTEM*	system;
-		FMOD_SOUND*		music;
-		FMOD_CHANNEL*	channel;
-		FMOD_RESULT		result;
-		char*			soundPath;
-		float			spectrum[SPECTRUM_SIZE];
-		bool			running;
-	};
-	
-public:
 	Visualizer();
 	~Visualizer();
 
@@ -35,9 +22,10 @@ public:
 private:
 	void handleEvents();
 	void handleTime();
-	bool fmodInit();
-
+	
 private:
-	Data mData;
 	GraphicsManager mGraphicsManager;
+	SoundManager mSoundManager;
+	std::string mMusicPath;
+	bool mIsRunning;
 };

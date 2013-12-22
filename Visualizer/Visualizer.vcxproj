@@ -72,10 +72,12 @@
   <ItemGroup>
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsManager.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Visualizer.h" />
   </ItemGroup>
   <ItemGroup>

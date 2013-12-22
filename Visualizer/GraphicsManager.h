@@ -10,13 +10,13 @@ public:
 	~GraphicsManager();
 	
 	void initialize(int windowWidth, int windowHeight, int spectrumSize);
-	void update(float spectrum[]);
+	void update(const float spectrum[]);
 
 private:
 	void clearScreen();
-	void displayBars(float spectrum[]);
+	void displayBars(const float spectrum[]);
 	void displayPointBars(int x, int y, float ratio);
-	void displaySpread(float spectrum[]);
+	void displaySpread(const float spectrum[]);
 	void displayPointSpread(int x, int y, Uint32 color);
 	void setPixel(SDL_Surface *surface, const int x, const int y, const Uint32 pixel);
 
