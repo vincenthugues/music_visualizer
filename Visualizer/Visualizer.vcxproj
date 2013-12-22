@@ -70,12 +70,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="Visualizer.h" />
   </ItemGroup>
   <ItemGroup>

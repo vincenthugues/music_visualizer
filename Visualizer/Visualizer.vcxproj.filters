@@ -18,18 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
+    <ClCompile Include="Visualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Visualizer.cpp">
+    <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graphics.h">
+    <ClInclude Include="Visualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Visualizer.h">
+    <ClInclude Include="GraphicsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
