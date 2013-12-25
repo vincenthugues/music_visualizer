@@ -30,6 +30,8 @@ void GraphicsManager::initialize(int windowWidth, int windowHeight, int spectrum
 	}
 	else
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+
+	mVisualization = 0;
 }
 
 
@@ -39,6 +41,10 @@ void GraphicsManager::setPixel(SDL_Surface *surface, const int x, const int y, c
 {
 	int bpp = surface->format->BytesPerPixel;
 	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+
+	if (x < 0 || y < 0
+		|| x >= surface->w || y >= surface->h)
+		return;
 
 	switch (bpp)
 	{
@@ -63,7 +69,7 @@ void GraphicsManager::setPixel(SDL_Surface *surface, const int x, const int y, c
 		}
 		break;
 	case 4:
-		*(Uint32 *)p = pixel;
+ 		*(Uint32 *)p = pixel;
 		break;
 	}
 }
@@ -150,15 +156,27 @@ void GraphicsManager::displaySpread(const float spectrum[])
 }
 
 
+// Set the current visualization to the next one
+void GraphicsManager::rotateVisualizations()
+{
+	++mVisualization;
+
+	if (mVisualization == 2)
+		mVisualization = 0;
+}
+
+
 // Updates the display by clearing the screen and displaying the current visualization
 void GraphicsManager::update(const float spectrum[])
 {
 	SDL_LockSurface(mScreen);
 	clearScreen();
 
-	displayBars(spectrum);
-	//displaySpread(spectrum);
-
+	if (mVisualization == 0)
+		displayBars(spectrum);
+	else
+		displaySpread(spectrum);
+	
 	SDL_UnlockSurface(mScreen);
 	SDL_Flip(mScreen);
 }

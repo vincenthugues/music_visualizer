@@ -53,6 +53,9 @@ void Visualizer::handleEvents()
 	else if (event.type == SDL_KEYDOWN)
 		switch (event.key.keysym.sym)
 	{
+		case SDLK_SPACE:
+			mGraphicsManager.rotateVisualizations();
+			break;
 		case SDLK_ESCAPE:
 			mIsRunning = false;
 			break;

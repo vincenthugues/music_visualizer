@@ -11,6 +11,7 @@ public:
 	
 	void initialize(int windowWidth, int windowHeight, int spectrumSize);
 	void update(const float spectrum[]);
+	void rotateVisualizations();
 
 private:
 	void clearScreen();
@@ -26,4 +27,5 @@ private:
 	int mWindowHeight;
 	int mSpectrumSize;
 	float mGraphStep;
+	int mVisualization;
 };
