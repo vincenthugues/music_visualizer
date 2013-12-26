@@ -15,8 +15,8 @@ public:
 
 private:
 	void clearScreen();
+	void displayCenteredBars(const float spectrum[]);
 	void displayBars(const float spectrum[]);
-	void displayPointBars(int x, int y, float ratio);
 	void displaySpread(const float spectrum[]);
 	void displayPointSpread(int x, int y, Uint32 color);
 	void setPixel(SDL_Surface *surface, const int x, const int y, const Uint32 pixel);

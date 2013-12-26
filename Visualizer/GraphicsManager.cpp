@@ -36,7 +36,7 @@ void GraphicsManager::initialize(int windowWidth, int windowHeight, int spectrum
 
 
 // Set the pixel at (x, y) to the given value
-// NOTE: The surface must be locked before calling this!
+// NOTE: The surface must be locked before calling this
 void GraphicsManager::setPixel(SDL_Surface *surface, const int x, const int y, const Uint32 pixel)
 {
 	int bpp = surface->format->BytesPerPixel;
@@ -75,16 +75,6 @@ void GraphicsManager::setPixel(SDL_Surface *surface, const int x, const int y, c
 }
 
 
-// Sets the pixels' values for the first type of visualization (see displayBars())
-void GraphicsManager::displayPointBars(int x, int y, float ratio)
-{
-	setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, 0, 255, 0));
-	setPixel(mScreen, x + 1, y, SDL_MapRGB(mScreen->format, 0, 255, 0));
-	setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, 255 - (y / ratio), y / ratio, 0));
-	setPixel(mScreen, x + 1, y, SDL_MapRGB(mScreen->format, 255 - (y / mWindowHeight), y / mWindowHeight, 0));
-}
-
-
 // Displays the first type of visualization: vertical bars whose heights are proportional to the corresponding frequency
 void GraphicsManager::displayBars(const float spectrum[])
 {
@@ -92,6 +82,8 @@ void GraphicsManager::displayBars(const float spectrum[])
 	int y, i;
 	float ratio = mWindowHeight / 255.0;
 
+	SDL_LockSurface(mScreen);
+	
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
 	{
 		value = spectrum[i] * 20 * mWindowHeight;
@@ -100,13 +92,41 @@ void GraphicsManager::displayBars(const float spectrum[])
 		if (value < 0)
 			value = 0;
 
-		SDL_LockSurface(mScreen);
 		for (y = mWindowHeight - value; y < mWindowHeight; y++)
-			displayPointBars(x, y, ratio);
-		SDL_UnlockSurface(mScreen);
+			setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, 255 - (y / ratio), y / ratio, 0));
 
 		x += mGraphStep;
 	}
+
+	SDL_UnlockSurface(mScreen);
+}
+
+
+// Displays the first type of visualization: vertical bars whose heights are proportional to the corresponding frequency
+void GraphicsManager::displayCenteredBars(const float spectrum[])
+{
+	int value = 0, x = 0;
+	int y, i;
+	float ratio = 0;
+
+	SDL_LockSurface(mScreen);
+
+	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
+	{
+		value = spectrum[i] * 10 * mWindowHeight;
+		if (value >= mWindowHeight)
+			value = mWindowHeight - 1;
+		if (value < 0)
+			value = 0;
+
+		ratio = (float)value / (float)mWindowHeight;
+		for (y = - value/2; y < value / 2; y++)
+			setPixel(mScreen, x, y + mWindowHeight / 2, SDL_MapRGB(mScreen->format, ratio * 255.0f, (1 - ratio) * 128.0f, (1 - ratio) * 255.0));
+		
+		x += mGraphStep;
+	}
+
+	SDL_UnlockSurface(mScreen);
 }
 
 
@@ -128,6 +148,8 @@ void GraphicsManager::displaySpread(const float spectrum[])
 	Uint32 color;
 	float ratio = mWindowHeight / 255.0;
 
+	SDL_LockSurface(mScreen);
+
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
 	{
 		value = spectrum[i] * 20 * mWindowHeight;
@@ -140,19 +162,17 @@ void GraphicsManager::displaySpread(const float spectrum[])
 		if (y >= 0 && y < mWindowHeight)
 		{
 			color = SDL_MapRGB(mScreen->format, 255 - (1.5 * y / ratio), y / ratio, 0);
-			SDL_LockSurface(mScreen);
 			displayPointSpread(x, y, color);
-			SDL_UnlockSurface(mScreen);
 			tmp = x;
 			x = y * mWindowHeight / mWindowWidth;
 			y = tmp * mWindowWidth / mWindowHeight;
-			SDL_LockSurface(mScreen);
 			displayPointSpread(y, x, color);
-			SDL_UnlockSurface(mScreen);
 		}
 
 		x += mGraphStep;
 	}
+	
+	SDL_UnlockSurface(mScreen);
 }
 
 
@@ -160,8 +180,8 @@ void GraphicsManager::displaySpread(const float spectrum[])
 void GraphicsManager::rotateVisualizations()
 {
 	++mVisualization;
-
-	if (mVisualization == 2)
+	
+	if (mVisualization == 3)
 		mVisualization = 0;
 }
 
@@ -174,9 +194,11 @@ void GraphicsManager::update(const float spectrum[])
 
 	if (mVisualization == 0)
 		displayBars(spectrum);
-	else
+	else if (mVisualization == 1)
+		displayCenteredBars(spectrum);
+	else if (mVisualization == 2)
 		displaySpread(spectrum);
-	
+
 	SDL_UnlockSurface(mScreen);
 	SDL_Flip(mScreen);
 }
