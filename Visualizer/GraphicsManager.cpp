@@ -21,7 +21,7 @@ void GraphicsManager::initialize(int windowWidth, int windowHeight, int spectrum
 	mWindowWidth = windowWidth;
 	mWindowHeight = windowHeight;
 	mSpectrumSize = spectrumSize;
-	mGraphStep = mWindowWidth / mSpectrumSize;
+	mGraphStep = static_cast<float>(mWindowWidth) / static_cast<float>(mSpectrumSize);
 
 	if (SDL_Init(SDL_INIT_VIDEO) == 0)
 	{
@@ -80,22 +80,22 @@ void GraphicsManager::displayBars(const float spectrum[])
 {
 	int value = 0, x = 0;
 	int y, i;
-	float ratio = mWindowHeight / 255.0;
+	float ratio = mWindowHeight / 255.0f;
 
 	SDL_LockSurface(mScreen);
 	
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
 	{
-		value = spectrum[i] * 20 * mWindowHeight;
+		value = static_cast<int>(spectrum[i] * 20.0f * mWindowHeight);
 		if (value >= mWindowHeight)
 			value = mWindowHeight - 1;
 		if (value < 0)
 			value = 0;
 
 		for (y = mWindowHeight - value; y < mWindowHeight; y++)
-			setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, 255 - (y / ratio), y / ratio, 0));
+			setPixel(mScreen, x, y, SDL_MapRGB(mScreen->format, static_cast<Uint8>(255 - (y / ratio)), static_cast<Uint8>(y / ratio), 0));
 
-		x += mGraphStep;
+		x += static_cast<int>(mGraphStep);
 	}
 
 	SDL_UnlockSurface(mScreen);
@@ -113,7 +113,7 @@ void GraphicsManager::displayCenteredBars(const float spectrum[])
 
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
 	{
-		value = spectrum[i] * 10 * mWindowHeight;
+		value = static_cast<int>(spectrum[i] * 10 * mWindowHeight);
 		if (value >= mWindowHeight)
 			value = mWindowHeight - 1;
 		if (value < 0)
@@ -121,9 +121,12 @@ void GraphicsManager::displayCenteredBars(const float spectrum[])
 
 		ratio = (float)value / (float)mWindowHeight;
 		for (y = - value/2; y < value / 2; y++)
-			setPixel(mScreen, x, y + mWindowHeight / 2, SDL_MapRGB(mScreen->format, ratio * 255.0f, (1 - ratio) * 128.0f, (1 - ratio) * 255.0));
+			setPixel(mScreen, x, y + mWindowHeight / 2, SDL_MapRGB(mScreen->format,
+																   static_cast<Uint8>(ratio * 255.0f),
+																   static_cast<Uint8>((1 - ratio) * 128.0f),
+																   static_cast<Uint8>((1 - ratio) * 255.0)));
 		
-		x += mGraphStep;
+		x += static_cast<int>(mGraphStep);
 	}
 
 	SDL_UnlockSurface(mScreen);
@@ -146,13 +149,13 @@ void GraphicsManager::displaySpread(const float spectrum[])
 	int value = 0, x = 0;
 	int y, tmp, i;
 	Uint32 color;
-	float ratio = mWindowHeight / 255.0;
+	float ratio = mWindowHeight / 255.0f;
 
 	SDL_LockSurface(mScreen);
 
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
 	{
-		value = spectrum[i] * 20 * mWindowHeight;
+		value = static_cast<int>(spectrum[i] * 20 * mWindowHeight);
 		if (value >= mWindowHeight)
 			value = mWindowHeight - 1;
 		if (value < 0)
@@ -161,7 +164,7 @@ void GraphicsManager::displaySpread(const float spectrum[])
 		y = mWindowHeight - value;
 		if (y >= 0 && y < mWindowHeight)
 		{
-			color = SDL_MapRGB(mScreen->format, 255 - (1.5 * y / ratio), y / ratio, 0);
+			color = SDL_MapRGB(mScreen->format, static_cast<Uint8>(255 - (1.5 * y / ratio)), static_cast<Uint8>(y / ratio), 0);
 			displayPointSpread(x, y, color);
 			tmp = x;
 			x = y * mWindowHeight / mWindowWidth;
@@ -169,7 +172,7 @@ void GraphicsManager::displaySpread(const float spectrum[])
 			displayPointSpread(y, x, color);
 		}
 
-		x += mGraphStep;
+		x += static_cast<int>(mGraphStep);
 	}
 	
 	SDL_UnlockSurface(mScreen);

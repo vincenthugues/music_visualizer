@@ -4,6 +4,7 @@
 Visualizer::Visualizer() :
 	mGraphicsManager(),
 	mSoundManager(),
+	mVisualizers(),
 	mMusicPath(),
 	mIsRunning(false)
 {
@@ -22,6 +23,7 @@ void Visualizer::initialize()
 	mMusicPath = "Resource/music.mp3";
 	mSoundManager.initialize(SPECTRUM_SIZE);
 	mGraphicsManager.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, SPECTRUM_SIZE);
+	// Initialize visualizations
 	
 	mIsRunning = true;
 }

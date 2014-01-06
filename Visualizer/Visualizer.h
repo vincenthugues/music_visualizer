@@ -1,7 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "GraphicsManager.h"
 #include "SoundManager.h"
+#include "Visualization.h"
 
 
 #define	WINDOW_WIDTH		1024
@@ -26,6 +29,7 @@ private:
 private:
 	GraphicsManager mGraphicsManager;
 	SoundManager mSoundManager;
+	std::vector<Visualization> mVisualizers;
 	std::string mMusicPath;
 	bool mIsRunning;
 };

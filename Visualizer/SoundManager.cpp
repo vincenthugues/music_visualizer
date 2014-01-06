@@ -54,7 +54,7 @@ void SoundManager::loadMusic(std::string& musicPath)
 	if (mResult != FMOD_OK)
 	{
 		std::cerr << "Unable to load " << mMusicPath.c_str() << std::endl;
-		// Exception?
+		throw new std::runtime_error(std::string("SoundManager::loadMusic() failed to load " + mMusicPath));
 	}
 }
 
