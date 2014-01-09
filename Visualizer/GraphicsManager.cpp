@@ -30,8 +30,6 @@ void GraphicsManager::initialize(int windowWidth, int windowHeight, int spectrum
 	}
 	else
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-
-	mVisualization = 0;
 }
 
 
@@ -108,7 +106,7 @@ void GraphicsManager::displayCenteredBars(const float spectrum[])
 	int value = 0, x = 0;
 	int y, i;
 	float ratio = 0;
-
+	
 	SDL_LockSurface(mScreen);
 
 	for (i = 0; x < mWindowWidth && i < mSpectrumSize; ++i)
@@ -179,21 +177,12 @@ void GraphicsManager::displaySpread(const float spectrum[])
 }
 
 
-// Set the current visualization to the next one
-void GraphicsManager::rotateVisualizations()
-{
-	++mVisualization;
-	
-	if (mVisualization == 3)
-		mVisualization = 0;
-}
-
-
 // Updates the display by clearing the screen and displaying the current visualization
-void GraphicsManager::update(const float spectrum[])
+void GraphicsManager::update(Visualization& visualization, const float spectrum[])
 {
 	SDL_LockSurface(mScreen);
 	clearScreen();
+
 
 	if (mVisualization == 0)
 		displayBars(spectrum);

@@ -1,14 +1,15 @@
 #include "Visualizer.h"
+#include "FreqBarsVisualization.h"
 
 
 Visualizer::Visualizer() :
 	mGraphicsManager(),
 	mSoundManager(),
-	mVisualizers(),
+	mVisualizations(),
 	mMusicPath(),
-	mIsRunning(false)
+	mIsRunning(false),
+	mCurrentVisualizationIdx(-1)
 {
-	
 }
 
 
@@ -23,8 +24,15 @@ void Visualizer::initialize()
 	mMusicPath = "Resource/music.mp3";
 	mSoundManager.initialize(SPECTRUM_SIZE);
 	mGraphicsManager.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, SPECTRUM_SIZE);
+
 	// Initialize visualizations
-	
+	Visualization* visualization = new FreqBarsVisualization();
+	if (visualization != 0)
+	{
+		visualization->initialize(SPECTRUM_SIZE);
+		mVisualizations.push_back(*visualization);
+	}
+
 	mIsRunning = true;
 }
 
@@ -39,8 +47,18 @@ void Visualizer::run()
 	{
 		handleEvents();
 		mSoundManager.update();
-		mGraphicsManager.update(mSoundManager.getSpectrum());
+		mGraphicsManager.update(mVisualizations[mCurrentVisualizationIdx], mSoundManager.getSpectrum());
 	}
+}
+
+
+// Set the current visualization to the next one
+void Visualizer::cycleVisualizations()
+{
+	++mCurrentVisualizationIdx;
+	
+	if (mCurrentVisualizationIdx == mVisualizations.size())
+		mCurrentVisualizationIdx = 0;
 }
 
 

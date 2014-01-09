@@ -21,6 +21,7 @@ public:
 
 	void initialize();
 	void run();
+	void cycleVisualizations();
 
 private:
 	void handleEvents();
@@ -29,7 +30,8 @@ private:
 private:
 	GraphicsManager mGraphicsManager;
 	SoundManager mSoundManager;
-	std::vector<Visualization> mVisualizers;
+	std::vector<Visualization&> mVisualizations;
 	std::string mMusicPath;
 	bool mIsRunning;
+	int mCurrentVisualizationIdx;
 };

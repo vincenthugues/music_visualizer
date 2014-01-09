@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "Visualization.h"
+
 
 class GraphicsManager
 {
@@ -10,9 +12,8 @@ public:
 	~GraphicsManager();
 	
 	void initialize(int windowWidth, int windowHeight, int spectrumSize);
-	void update(const float spectrum[]);
-	void rotateVisualizations();
-
+	void update(Visualization& visualization, const float spectrum[]);
+	
 private:
 	void clearScreen();
 	void displayCenteredBars(const float spectrum[]);
@@ -27,5 +28,4 @@ private:
 	int mWindowHeight;
 	int mSpectrumSize;
 	float mGraphStep;
-	int mVisualization;
 };

@@ -36,6 +36,9 @@
     <ClCompile Include="Visualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FreqBarsVisualization.cpp">
+      <Filter>Source Files\Visualizations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Visualizer.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Visualization.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FreqBarsVisualization.h">
+      <Filter>Header Files\Visualizations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

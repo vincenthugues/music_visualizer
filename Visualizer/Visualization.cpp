@@ -1,13 +1,21 @@
 #include "Visualization.h"
 
 
-Visualization::Visualization()
+Visualization::Visualization() :
+	mSpectrumSize(-1),
+	mPixels()
 {
 }
 
 
 Visualization::~Visualization()
 {
+}
+
+
+std::vector<Pixel> const & Visualization::getPixels()
+{
+	return mPixels;
 }
 
 
