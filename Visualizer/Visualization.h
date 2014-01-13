@@ -27,7 +27,7 @@ public:
 	std::vector<Pixel> const & getPixels();
 
 	void initialize(int spectrumSize);
-	virtual void update(float spectrum[]) = 0;
+	virtual void update(const float spectrum[], int windowWidth, int windowHeight, float graphStep) = 0;
 	
 protected:
 	int mSpectrumSize;

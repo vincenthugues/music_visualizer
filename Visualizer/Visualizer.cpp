@@ -8,13 +8,15 @@ Visualizer::Visualizer() :
 	mVisualizations(),
 	mMusicPath(),
 	mIsRunning(false),
-	mCurrentVisualizationIdx(-1)
+	mCurrentVisualization(-1)
 {
 }
 
 
 Visualizer::~Visualizer()
 {
+	for (std::vector<Visualization *>::iterator it = mVisualizations.begin(); it != mVisualizations.end(); it++)
+		delete(*it);
 }
 
 
@@ -30,8 +32,11 @@ void Visualizer::initialize()
 	if (visualization != 0)
 	{
 		visualization->initialize(SPECTRUM_SIZE);
-		mVisualizations.push_back(*visualization);
+		mVisualizations.push_back(visualization);
 	}
+
+	if (mVisualizations.size() > 0)
+		mCurrentVisualization = 0;
 
 	mIsRunning = true;
 }
@@ -47,7 +52,8 @@ void Visualizer::run()
 	{
 		handleEvents();
 		mSoundManager.update();
-		mGraphicsManager.update(mVisualizations[mCurrentVisualizationIdx], mSoundManager.getSpectrum());
+		mGraphicsManager.update(*mVisualizations[mCurrentVisualization], mSoundManager.getSpectrum());
+		mGraphicsManager.display(*mVisualizations[mCurrentVisualization]);
 	}
 }
 
@@ -55,10 +61,10 @@ void Visualizer::run()
 // Set the current visualization to the next one
 void Visualizer::cycleVisualizations()
 {
-	++mCurrentVisualizationIdx;
+	++mCurrentVisualization;
 	
-	if (mCurrentVisualizationIdx == mVisualizations.size())
-		mCurrentVisualizationIdx = 0;
+	if (mCurrentVisualization == mVisualizations.size())
+		mCurrentVisualization = 0;
 }
 
 
@@ -74,7 +80,7 @@ void Visualizer::handleEvents()
 		switch (event.key.keysym.sym)
 	{
 		case SDLK_SPACE:
-			mGraphicsManager.rotateVisualizations();
+			cycleVisualizations();
 			break;
 		case SDLK_ESCAPE:
 			mIsRunning = false;

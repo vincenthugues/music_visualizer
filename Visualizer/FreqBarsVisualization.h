@@ -9,5 +9,5 @@ public:
 	FreqBarsVisualization();
 	~FreqBarsVisualization();
 
-	void update(float spectrum[]);
+	void update(const float spectrum[], int windowWidth, int windowHeight, float graphStep);
 };

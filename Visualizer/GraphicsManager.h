@@ -13,14 +13,16 @@ public:
 	
 	void initialize(int windowWidth, int windowHeight, int spectrumSize);
 	void update(Visualization& visualization, const float spectrum[]);
+	void display(Visualization& visualization);
 	
 private:
 	void clearScreen();
-	void displayCenteredBars(const float spectrum[]);
-	void displayBars(const float spectrum[]);
-	void displaySpread(const float spectrum[]);
-	void displayPointSpread(int x, int y, Uint32 color);
 	void setPixel(SDL_Surface *surface, const int x, const int y, const Uint32 pixel);
+
+	//void displayCenteredBars(const float spectrum[]);
+	//void displayBars(const float spectrum[]);
+	//void displaySpread(const float spectrum[]);
+	//void displayPointSpread(int x, int y, Uint32 color);
 
 private:
 	SDL_Surface* mScreen;
