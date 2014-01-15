@@ -17,13 +17,15 @@ class Visualizer
 {
 public:
 	Visualizer();
-	~Visualizer();
+	virtual ~Visualizer();
 
 	void initialize();
 	void run();
 	void cycleVisualizations();
 
 private:
+	void addVisualization(Visualization *visualization);
+	
 	void handleEvents();
 	void handleTime();
 	

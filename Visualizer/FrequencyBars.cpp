@@ -1,18 +1,18 @@
-#include "FreqBarsVisualization.h"
+#include "FrequencyBars.h"
 
 
-FreqBarsVisualization::FreqBarsVisualization()
+FrequencyBars::FrequencyBars()
 : Visualization()
 {
 }
 
 
-FreqBarsVisualization::~FreqBarsVisualization()
+FrequencyBars::~FrequencyBars()
 {
 }
 
 
-void FreqBarsVisualization::update(const float spectrum[], int windowWidth, int windowHeight, float graphStep)
+void FrequencyBars::update(const float spectrum[], int windowWidth, int windowHeight, float graphStep)
 {
 	int value = 0, x = 0;
 	int y, i;

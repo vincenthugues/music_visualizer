@@ -70,17 +70,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FreqBarsVisualization.cpp" />
+    <ClCompile Include="FrequencyBarsCentered.cpp" />
+    <ClCompile Include="FrequencyBars.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Spread.cpp" />
     <ClCompile Include="Visualization.cpp" />
     <ClCompile Include="Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FreqBarsVisualization.h" />
+    <ClInclude Include="FrequencyBarsCentered.h" />
+    <ClInclude Include="FrequencyBars.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Spread.h" />
     <ClInclude Include="Visualization.h" />
     <ClInclude Include="Visualizer.h" />
   </ItemGroup>

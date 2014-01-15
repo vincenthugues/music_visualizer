@@ -36,7 +36,13 @@
     <ClCompile Include="Visualization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FreqBarsVisualization.cpp">
+    <ClCompile Include="FrequencyBars.cpp">
+      <Filter>Source Files\Visualizations</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequencyBarsCentered.cpp">
+      <Filter>Source Files\Visualizations</Filter>
+    </ClCompile>
+    <ClCompile Include="Spread.cpp">
       <Filter>Source Files\Visualizations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +59,13 @@
     <ClInclude Include="Visualization.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreqBarsVisualization.h">
+    <ClInclude Include="FrequencyBars.h">
+      <Filter>Header Files\Visualizations</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyBarsCentered.h">
+      <Filter>Header Files\Visualizations</Filter>
+    </ClInclude>
+    <ClInclude Include="Spread.h">
       <Filter>Header Files\Visualizations</Filter>
     </ClInclude>
   </ItemGroup>
